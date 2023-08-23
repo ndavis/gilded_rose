@@ -293,4 +293,38 @@ RSpec.describe GildedRose do
       expect(items[0]).to have_attributes(days_remaining: -11, quality: 0)
     end
   end
+
+  context "Raw Milk" do
+    it "before sell date" do
+      items = [Item.new(name: "Raw Milk", days_remaining: 5, quality: 10)]
+    
+      subject.process_end_of_day(items)
+    
+      expect(items[0]).to have_attributes(days_remaining: 4, quality: 8)
+    end
+
+    it "on sell date" do
+      items = [Item.new(name: "Raw Milk", days_remaining: 0, quality: 10)]
+    
+      subject.process_end_of_day(items)
+    
+      expect(items[0]).to have_attributes(days_remaining: -1, quality: 6)
+    end
+
+    it "after sell date" do
+      items = [Item.new(name: "Raw Milk", days_remaining: -10, quality: 10)]
+    
+      subject.process_end_of_day(items)
+    
+      expect(items[0]).to have_attributes(days_remaining: -11, quality: 6)
+    end
+
+    it "after sell date with min quality" do
+      items = [Item.new(name: "Raw Milk", days_remaining: -10, quality: 0)]
+    
+      subject.process_end_of_day(items)
+    
+      expect(items[0]).to have_attributes(days_remaining: -11, quality: 0)
+    end
+  end
 end
