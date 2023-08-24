@@ -1,3 +1,6 @@
+https://www.bradcypert.com/what-you-need-to-know-about-the-gilded-rose-interview-problem/
+
+
 Hi and welcome to team Gilded Rose. We provide an inventory management library that provides calculations for how items should change each day.
 
 Items have the following fields:
